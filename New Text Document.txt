@@ -1,0 +1,44 @@
+# app.py
+import streamlit as st
+import psycopg2
+import pandas as pd
+
+# Database credentials
+dbname = "dc3dgvprqai46s"
+user = "iphhkwwqdisvbr"
+password = "c7909b18003fb28a9ea1a69b77d978fd8f817984523646ed7337ba019e71b29c"
+host = "ec2-34-232-92-61.compute-1.amazonaws.com"
+port = "5432"
+
+# Function to fetch and display invoices
+def display_invoices():
+    # Connect to the database
+    conn = psycopg2.connect(
+        dbname=dbname,
+        user=user,
+        password=password,
+        host=host,
+        port=port
+    )
+
+    # Query to fetch invoices
+    query = '''
+        SELECT
+            invoices.id, invoices.date, invoices.invoice_number, invoices.reference,
+            invoices.service, invoices.passenger, invoices.sold_amount, invoices.due_amount
+        FROM invoices
+    '''
+
+    # Execute the query and fetch results into a Pandas DataFrame
+    df = pd.read_sql_query(query, conn)
+
+    # Close the database connection
+    conn.close()
+
+    # Display the DataFrame as a table
+    st.title("Invoice List")
+    st.dataframe(df)
+
+if __name__ == "__main__":
+    # Run the display_invoices function
+    display_invoices()

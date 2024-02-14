@@ -2,4 +2,8 @@ openpyxl
 pandas==2.0.1
 plotly==5.13.1
 streamlit==1.25.0
+<<<<<<< HEAD
 psycopg2-binary==2.9.1
+=======
+psycopg2-binary
+>>>>>>> 16d9da79959becbe9cf056047444d22fb2b5f956
